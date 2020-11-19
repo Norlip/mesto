@@ -1,4 +1,4 @@
-.page{
+.page {
     font-family: "Inter", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -9,5 +9,4 @@
     flex-direction: column;
     margin-right: auto;
     margin-left: auto;
-}
 }
