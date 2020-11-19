@@ -4,4 +4,4 @@
 
 HTML + CSS + JS. Используется методолгия БЭМ. Локально подключен шрифт - Iner. Файловая структура: Nested.
 
-https://norlip.github.io/russian-travel/
+https://norlip.github.io/mesto/
