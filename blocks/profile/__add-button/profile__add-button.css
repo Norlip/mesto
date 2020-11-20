@@ -1,17 +1,11 @@
 .profile__add-button {
-    position: absolute;
-    right: 0;
-    top: 35px;
     cursor: pointer;
-}
-.profile__add-button:hover {
-    opacity: 0.6;
+    margin: 0;
 }
 
 @media screen and (max-width: 629px) {
     .profile__add-button {
         content: url(../../../sprint-4-images/Add-Button_mobile.svg);
         margin: 0;
-        position: static;
     }
 }

@@ -1,0 +1,18 @@
+.button_add {
+    border: 0;
+    background: none;
+    margin: 0;
+    padding: 0;
+
+    margin-top: 35px;
+}
+.button_add:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 629px) {
+    .button_add {
+        width: 282px;
+        height: 286px;
+    }
+}

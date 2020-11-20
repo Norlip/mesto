@@ -3,21 +3,23 @@ const popupContent = document.querySelector('.popup__content');
 const popupTitle = document.querySelector('.popup__title');
 
 const popupCloseButton = document.querySelector('.popup__close');
-const editButton = document.querySelector('.profile__edit-button');
+const editButton = document.querySelector('.button');
+
+
 
 let title = document.querySelector('.profile__name');
 let descript = document.querySelector('.profile__descript');
 
 
-let POPtitle = document.querySelector('.popup__input_type_name');
-let POPdescript = document.querySelector('.popup__input_type_title');
+let PopTitle = document.querySelector('.popup__input_type_name');
+let PopDescript = document.querySelector('.popup__input_type_title');
 
-let formElement = document.querySelector(".popup__button");
+let FormButton = document.querySelector(".popup__button");
 
 function showPop() {
     popup.classList.add('popup_opened');
-    POPtitle.value = title.textContent;
-    POPdescript.value = descript.textContent;
+    PopTitle.value = title.textContent;
+    PopDescript.value = descript.textContent;
 
 
 }
@@ -28,12 +30,12 @@ function closePop() {
 
 function formSubmitHandler(evt) {
     evt.preventDefault();
-    title.textContent = POPtitle.value;
-    descript.textContent = POPdescript.value;
+    title.textContent = PopTitle.value;
+    descript.textContent = PopDescript.value;
 }
 
 
 
-formElement.addEventListener("submit", formSubmitHandler);
-editButton.addEventListener("mousedown", showPop);
-popupCloseButton.addEventListener("mousedown", closePop);
+FormButton.addEventListener("submit", formSubmitHandler);
+editButton.addEventListener("click", showPop);
+popupCloseButton.addEventListener("click", closePop);
