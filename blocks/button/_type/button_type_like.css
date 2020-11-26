@@ -5,4 +5,11 @@
     width: 21px;
     height: 18px;
     margin: 32px 23px 0;
+    background-image: url(../../../sprint-4-images/love.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.button_type_like:hover {
+    opacity: 0.5;
 }

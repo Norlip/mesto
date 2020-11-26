@@ -33,79 +33,9 @@
             <section class="elements">
                 <ul class="elements__grid">
 
-                    <li>
-                        <div class="elements__item">
-                            <img class="elements__photo" alt="Фото"
-                                src="./sprint-4-images/kirill-pershin-1088404-unsplash.png">
-                            <div class="elements__description">
-                                <h3 class="elements__name">Карачаевск</h3>
-                                <button type="button" class="button button_type_like"><img class="elements__like"
-                                        alt="Нравится" src="./sprint-4-images/love.svg"> </button>
-                            </div>
-                        </div>
-                    </li>
-
-
-                    <li>
-                        <div class="elements__item">
-                            <img class="elements__photo" alt="Фото"
-                                src="./sprint-4-images/kirill-pershin-1404681-unsplash.png">
-                            <div class="elements__description">
-                                <h3 class="elements__name">Карачаевск</h3>
-                                <button type="button" class="button button_type_like"><img class="elements__like"
-                                        alt="Нравится" src="./sprint-4-images/love.svg"> </button>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="elements__item">
-                            <img class="elements__photo" alt="Фото"
-                                src="./sprint-4-images/kirill-pershin-1556355-unsplash.png">
-                            <div class="elements__description">
-                                <h3 class="elements__name">Карачаевск</h3>
-                                <button type="button" class="button button_type_like"><img class="elements__like"
-                                        alt="Нравится" src="./sprint-4-images/love.svg"> </button>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="elements__item">
-                            <img class="elements__photo" alt="Фото"
-                                src="./sprint-4-images/kirill-pershin-1404681-unsplash.png">
-                            <div class="elements__description">
-                                <h3 class="elements__name">Карачаевск</h3>
-                                <button type="button" class="button button_type_like"><img class="elements__like"
-                                        alt="Нравится" src="./sprint-4-images/love.svg"> </button>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="elements__item">
-                            <img class="elements__photo" alt="Фото"
-                                src="./sprint-4-images/kirill-pershin-1088404-unsplash.png">
-                            <div class="elements__description">
-                                <h3 class="elements__name">Карачаевск</h3>
-                                <button type="button" class="button button_type_like"><img class="elements__like"
-                                        alt="Нравится" src="./sprint-4-images/love.svg"> </button>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="elements__item">
-                            <img class="elements__photo" alt="Фото"
-                                src="./sprint-4-images/kirill-pershin-1556355-unsplash.png">
-                            <div class="elements__description">
-                                <h3 class="elements__name">Карачаевсcccccк</h3>
-                                <button type="button" class="button button_type_like"><img class="elements__like"
-                                        alt="Нравится" src="./sprint-4-images/love.svg"> </button>
-                            </div>
-                        </div>
-                    </li>
+                    >
                 </ul>
+
 
             </section>
         </main>
@@ -126,6 +56,45 @@
             </div>
         </div>
     </div>
+
+    <div class="popup-add">
+        <div class="popup-add__content">
+            <button type="button" class="popup-add__close button"></button>
+            <h2 class="popup-add__title">Новое место</h2>
+            <form name="form1" class="popup-add__form">
+                <input name="name" placeholder="Название" type="text"
+                    class="popup-add__input popup-add__input_type_name">
+                <input name="title" placeholder="Ссылка на картинку" type="text"
+                    class="popup-add__input popup-add__input_type_title">
+                <button type="submit" class="popup-add__button">Создать</button>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <div class="popup-photo">
+        <div class="popup-photo__content">
+            <button type="button" class="popup-photo__close button"></button>
+            <img alt="Фото" class="popup-photo__image"
+                src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'>
+            <h2 class="popup-photo__title">Новое место</h2>
+        </div>
+    </div>
+    </div>
+
+
+    <template class="template">
+        <li class="elements_li">
+            <div class="elements__item">
+                <button type="button" class="button button_type_del"><img> </button>
+                <img class="elements__photo" alt="Фото" src="./sprint-4-images/kirill-pershin-1088404-unsplash.png">
+                <div class="elements__description">
+                    <h3 class="elements__name"></h3>
+                    <button type="button" class="button button_type_like"></button>
+                </div>
+            </div>
+        </li>
+    </template>
 
     <script src="./scripts/index.js"></script>
 </body>
