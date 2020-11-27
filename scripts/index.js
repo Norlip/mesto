@@ -1,22 +1,22 @@
-const popup = document.querySelector('.popup');
-const popupCloseButton = document.querySelector('.popup__close');
 const editButton = document.querySelector('.button_type_edit');
-const addPopup = document.querySelector('.popup-add');
 const addButton = document.querySelector('.button_type_add');
 const addCloseButton = document.querySelector('.popup-add__close');
 const elementsGrid = document.querySelector(".elements__grid");
 const delButton = document.querySelector(".button_type_del");
+const popupAdd = document.querySelector(".popup-add");
+const popupEdit = document.querySelector(".popup-edit");
+const popupPhoto = document.querySelector(".popup-photo");
 
+const popAddTitle = document.querySelector('.popup-add__input_type_name');
 
+const popAddDescript = document.querySelector('.popup-add__input_type_title');
 
-let popAddTitle = document.querySelector('.popup-add__input_type_name');
-let popAddDescript = document.querySelector('.popup-add__input_type_title');
-let title = document.querySelector('.profile__name');
-let descript = document.querySelector('.profile__descript');
-let popTitle = document.querySelector('.popup__input_type_name');
-let popDescript = document.querySelector('.popup__input_type_title');
-let formElement = document.querySelector(".popup__form");
-let formAddElement = document.querySelector(".popup-add__form");
+const title = document.querySelector('.profile__name');
+const descript = document.querySelector('.profile__descript');
+const popTitle = document.querySelector('.popup-edit__input_type_name');
+const popDescript = document.querySelector('.popup-edit__input_type_title');
+const formElement = document.querySelector(".popup-edit__form");
+const formAddElement = document.querySelector(".popup-add__form");
 
 
 const initialCards = [
@@ -52,11 +52,25 @@ const photoPhotoImage = document.querySelector('.popup-photo__image');
 const photoPopup = document.querySelector('.popup-photo');
 const popupTitle = document.querySelector('.popup-photo__title');
 
+function openPop(pop) {
+    pop.classList.add("popup_opened");
+}
 
-function addCard(name, link) {
+function openEditPop(pop) {
+    popTitle.value = title.textContent;
+    popDescript.value = descript.textContent;
+    openPop(pop);
+}
+
+function closePop(pop) {
+    pop.classList.remove("popup_opened");
+}
+
+function getCard(name, link) {
     const temple = document.querySelector(".template").content.cloneNode(true);
     temple.querySelector(".elements__name").textContent = name;
-    temple.querySelector(".elements__photo").src = link;
+    const photo = temple.querySelector(".elements__photo");
+    photo.src = link;
     temple.querySelector(".button_type_del").addEventListener("click", event => {
         const el = event.target.closest(".elements_li");
         if (el) {
@@ -72,68 +86,44 @@ function addCard(name, link) {
 
     });
 
-    temple.querySelector(".elements__photo").addEventListener("click", () => {
-        photoPopup.classList.add("popup-photo_opened");
-
+    photo.addEventListener("click", () => {
+        openPop(photoPopup);
         photoPhotoImage.src = link;
         popupTitle.textContent = name;
 
     });
     photoCloseButton.addEventListener("click", () => {
-        photoPopup.classList.remove("popup-photo_opened");
-
+        closePop(photoPopup);
 
     });
 
-
-    elementsGrid.prepend(temple);
-
+    return elementsGrid.prepend(temple);;
 
 }
 
 initialCards.forEach(function (item) {
-    addCard(item.name, item.link);
+    getCard(item.name, item.link);
 
 });
 
-function showPop() {
-    popup.classList.add('popup_opened');
-    popTitle.value = title.textContent;
-    popDescript.value = descript.textContent;
-}
 
-function showAddPop() {
-    addPopup.classList.add('popup-add_opened');
-
-}
-
-function closePop() {
-    popup.classList.remove('popup_opened')
-}
-
-function closeAddPop() {
-    addPopup.classList.remove('popup-add_opened')
-}
-
-function formSubmitHandler(evt) {
+function handleformSubmitHandler(evt) {
     evt.preventDefault();
     title.textContent = popTitle.value;
     descript.textContent = popDescript.value;
-    closePop();
+    closePop(popupEdit);
 }
-function formAddSubmitHandler(evt) {
+function handleFormSubmit(evt) {
     evt.preventDefault();
-    addCard(popAddTitle.value, popAddDescript.value);
-    closeAddPop();
+    getCard(popAddTitle.value, popAddDescript.value);
+    closePop(popupAdd);
     popAddTitle.value = "";
     popAddDescript.value = "";
 }
 
+addButton.addEventListener("click", function () { openPop(popupAdd) });
+editButton.addEventListener("click", function () { openEditPop(popupEdit) });
 
-formElement.addEventListener("submit", formSubmitHandler);
-formAddElement.addEventListener("submit", formAddSubmitHandler);
-editButton.addEventListener("click", showPop);
-popupCloseButton.addEventListener("click", closePop);
-addButton.addEventListener("click", showAddPop);
-addCloseButton.addEventListener("click", closeAddPop);
+formElement.addEventListener("submit", handleformSubmitHandler);
+formAddElement.addEventListener("submit", handleFormSubmit);
 
