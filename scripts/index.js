@@ -97,13 +97,13 @@ function getCard(name, link) {
 
     });
 
-    return elementsGrid.prepend(temple);;
+    return temple;;
 
 }
 
 initialCards.forEach(function (item) {
-    getCard(item.name, item.link);
-
+    const card = getCard(item.name, item.link);
+    elementsGrid.prepend(card);
 });
 
 
@@ -115,7 +115,8 @@ function handleformSubmitHandler(evt) {
 }
 function handleFormSubmit(evt) {
     evt.preventDefault();
-    getCard(popAddTitle.value, popAddDescript.value);
+    const card = getCard(popAddTitle.value, popAddDescript.value);
+    elementsGrid.prepend(card);
     closePop(popupAdd);
     popAddTitle.value = "";
     popAddDescript.value = "";
