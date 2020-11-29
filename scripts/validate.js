@@ -1,23 +1,44 @@
-const enableValidation = {
-    inputAddSelector: ".popup-add__input",
-    inputEditSelector: ".popup-edit__input",
-    inactiveButtonClass: 'popup__button_invalid',
-    errorClass: 'invalid'
+
+const setEventListeners = (formElement) => {
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+    const buttonElement = formElement.querySelector('.popup__button');
+
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', () => {
+            check(formElement, inputElement);
+            setButton(buttonElement, inputList);
+        });
+    });
+};
+const enableValidation = ({ formSelector }) => {
+    const getFormList = Array.from(document.querySelectorAll(formSelector));
+    getFormList.forEach((formElement) => {
+        formElement.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        });
+        setEventListeners(formElement);
+    })
 };
 
-// Совершенно не понимаю зачем это, для чего это и как это правльно реализовать. В задании очень плохо обьяснено. 
+enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+});
+
 
 
 function showError(form, input) {
     const error = form.querySelector(`#${input.id}-error`);
     error.textContent = input.validationMessage;
-    input.classList.add(enableValidation.errorClass);
 
 }
 function hideError(form, input) {
     const error = form.querySelector(`#${input.id}-error`);
     error.textContent = "";
-    input.classList.remove(enableValidation.errorClass);
 
 }
 
@@ -32,40 +53,24 @@ function check(form, input) {
     }
 
 }
+const hasInvalidInput = (inputList) => {
+    return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+    })
+};
+function setButton(button, inputList) {
 
-function setButton(button, isActive) {
-
-    if (isActive) {
-        button.classList.remove(enableValidation.inactiveButtonClass);
-        button.disabled = false;
+    if (hasInvalidInput(inputList)) {
+        button.disabled = true;
     }
     else {
-        button.classList.add(enableValidation.inactiveButtonClass);
-        button.disabled = true;
+        button.disabled = false;
 
     }
 
 }
 
-inputAdd = document.querySelectorAll(enableValidation.inputAddSelector);
-inputEdit = document.querySelectorAll(enableValidation.inputEditSelector);
+//Пришлось самому разбираться. Надеюсь я все правильно понял
 
-inputAdd.forEach((input) => {
-    input.addEventListener("input", (evt) => {
-        check(formAddElement, input);
-        setButton(addFormButton, formAddElement.checkValidity());
-
-    });
-
-});
-
-inputEdit.forEach((input) => {
-    input.addEventListener("input", (evt) => {
-        check(formEditElement, input);
-        setButton(editFormButton, formEditElement.checkValidity());
-
-    });
-
-});
 
 

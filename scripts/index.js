@@ -5,8 +5,8 @@ const editCloseButton = document.querySelector('.popup-edit__close');
 const editFormButton = document.querySelector('.popup-edit__button');
 const addFormButton = document.querySelector('.popup-add__button');
 const formElement = document.querySelector('.popup-edit__button');
-const photoPop = document.querySelector('.popup-photo');
-const photoPopContent = document.querySelector('.popup-photo__content');
+const pop = document.querySelectorAll('.popup');
+const popContent = document.querySelectorAll('.popup__content');
 
 
 const elementsGrid = document.querySelector(".elements__grid");
@@ -58,8 +58,16 @@ const photoPhotoImage = document.querySelector('.popup-photo__image');
 const photoPopup = document.querySelector('.popup-photo');
 const popupTitle = document.querySelector('.popup-photo__title');
 
+function Esc(evt) {
+    if (evt.key === "Escape") {
+        const popupActive = document.querySelector('.popup_opened');
+        closePop(popupActive);
+    }
+}
+
 function openPop(pop) {
     pop.classList.add("popup_opened");
+    document.addEventListener('keydown', Esc);
 }
 
 function openEditPop(pop) {
@@ -70,6 +78,7 @@ function openEditPop(pop) {
 
 function closePop(pop) {
     pop.classList.remove("popup_opened");
+    document.removeEventListener('keydown', Esc);
 }
 
 function getCard(name, link) {
@@ -78,17 +87,14 @@ function getCard(name, link) {
     const photo = temple.querySelector(".elements__photo");
     photo.src = link;
     temple.querySelector(".button_type_del").addEventListener("click", event => {
-        const el = event.target.closest(".elements_li");
-        if (el) {
-            el.remove();
-        }
+        event.target.closest(".elements_li").remove()
 
     });
+
     temple.querySelector(".button_type_like").addEventListener("click", event => {
-        if (event.target.classList.contains("button_type_like-activ")) { event.target.classList.remove("button_type_like-activ"); }
-        else {
-            event.target.classList.add("button_type_like-activ");
-        }
+
+        event.target.classList.toggle("button_type_like-activ");
+
 
     });
 
@@ -110,16 +116,14 @@ function getCard(name, link) {
 
 }
 
-document.addEventListener('keydown', function (evt) {
-    if (evt.key === "Escape") {
-        closePop(photoPopup);
-    }
-});
+function PreCard(card) {
+    elementsGrid.prepend(card);
+
+}
 initialCards.forEach(function (item) {
     const card = getCard(item.name, item.link);
-    elementsGrid.prepend(card);
+    PreCard(card)
 });
-
 
 function handleformSubmitHandler(evt) {
     evt.preventDefault();
@@ -130,7 +134,7 @@ function handleformSubmitHandler(evt) {
 function handleFormSubmit(evt) {
     evt.preventDefault();
     const card = getCard(popAddTitle.value, popAddDescript.value);
-    elementsGrid.prepend(card);
+    PreCard(card)
     closePop(popupAdd);
     popAddTitle.value = "";
     popAddDescript.value = "";
@@ -144,14 +148,19 @@ editCloseButton.addEventListener("click", function () { closePop(popupEdit) });
 formAddElement.addEventListener("submit", handleFormSubmit);
 
 
+popContent.forEach(function (evt) {
+    evt.addEventListener("click", (evt) => {
+        evt.targt.stopPropagation();
 
-photoPopContent.addEventListener("click", (evt) => {
-    evt.stopPropagation();
+    })
 
-})
+});
 
-photoPop.addEventListener("click", (evt) => {
-    closePop(photoPop);
+pop.forEach(function (evt) {
+    evt.addEventListener("click", (evt) => {
+        closePop(evt.target);
+    })
+
 
 })
 
