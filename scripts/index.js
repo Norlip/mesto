@@ -2,23 +2,29 @@ const editButton = document.querySelector('.button_type_edit');
 const addButton = document.querySelector('.button_type_add');
 const addCloseButton = document.querySelector('.popup-add__close');
 const editCloseButton = document.querySelector('.popup-edit__close');
+const editFormButton = document.querySelector('.popup-edit__button');
+const addFormButton = document.querySelector('.popup-add__button');
+const formElement = document.querySelector('.popup-edit__button');
+const photoPop = document.querySelector('.popup-photo');
+const photoPopContent = document.querySelector('.popup-photo__content');
+
 
 const elementsGrid = document.querySelector(".elements__grid");
 const delButton = document.querySelector(".button_type_del");
 const popupAdd = document.querySelector(".popup-add");
 const popupEdit = document.querySelector(".popup-edit");
-const popupPhoto = document.querySelector(".popup-photo");
-
 
 
 const title = document.querySelector('.profile__name');
 const descript = document.querySelector('.profile__descript');
 const popTitle = document.querySelector('.popup-edit__input_type_name');
 const popDescript = document.querySelector('.popup-edit__input_type_title');
-const formElement = document.querySelector(".popup-edit__form");
+const formEditElement = document.querySelector(".popup-edit__form");
 const formAddElement = document.querySelector(".popup-add__form");
+
 const popAddTitle = document.querySelector('.popup-add__input_type_name');
 const popAddDescript = document.querySelector('.popup-add__input_type_title');
+const inputLists = document.querySelector('.popup-add__input_type_title');
 const initialCards = [
     {
         name: 'Архыз',
@@ -92,15 +98,23 @@ function getCard(name, link) {
         popupTitle.textContent = name;
 
     });
-    photoCloseButton.addEventListener("click", () => {
+
+    photoCloseButton.addEventListener("click", (evt) => {
         closePop(photoPopup);
 
     });
+
+
 
     return temple;;
 
 }
 
+document.addEventListener('keydown', function (evt) {
+    if (evt.key === "Escape") {
+        closePop(photoPopup);
+    }
+});
 initialCards.forEach(function (item) {
     const card = getCard(item.name, item.link);
     elementsGrid.prepend(card);
@@ -124,13 +138,21 @@ function handleFormSubmit(evt) {
 
 addButton.addEventListener("click", function () { openPop(popupAdd) });
 editButton.addEventListener("click", function () { openEditPop(popupEdit) });
-formElement.addEventListener("submit", handleformSubmitHandler);
+formEditElement.addEventListener("submit", handleformSubmitHandler);
 addCloseButton.addEventListener("click", function () { closePop(popupAdd) });
 editCloseButton.addEventListener("click", function () { closePop(popupEdit) });
-
 formAddElement.addEventListener("submit", handleFormSubmit);
-popAddTitle.addEventListener("input", (evt) => {
-    const input = evt.target;
-    const error = formAddElement.querySelector(`#${input.id}-error`);
-    error.textContent = input.validationMessage;
+
+
+
+photoPopContent.addEventListener("click", (evt) => {
+    evt.stopPropagation();
+
 })
+
+photoPop.addEventListener("click", (evt) => {
+    closePop(photoPop);
+
+})
+
+
