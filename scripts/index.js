@@ -58,7 +58,7 @@ const photoPhotoImage = document.querySelector('.popup-photo__image');
 const photoPopup = document.querySelector('.popup-photo');
 const popupTitle = document.querySelector('.popup-photo__title');
 
-function Esc(evt) {
+function esc(evt) {
     if (evt.key === "Escape") {
         const popupActive = document.querySelector('.popup_opened');
         closePop(popupActive);
@@ -67,7 +67,7 @@ function Esc(evt) {
 
 function openPop(pop) {
     pop.classList.add("popup_opened");
-    document.addEventListener('keydown', Esc);
+    document.addEventListener('keydown', esc);
 }
 
 function openEditPop(pop) {
@@ -78,7 +78,7 @@ function openEditPop(pop) {
 
 function closePop(pop) {
     pop.classList.remove("popup_opened");
-    document.removeEventListener('keydown', Esc);
+    document.removeEventListener('keydown', esc);
 }
 
 function getCard(name, link) {
@@ -116,13 +116,13 @@ function getCard(name, link) {
 
 }
 
-function PreCard(card) {
+function preCard(card) {
     elementsGrid.prepend(card);
 
 }
 initialCards.forEach(function (item) {
     const card = getCard(item.name, item.link);
-    PreCard(card)
+    preCard(card)
 });
 
 function handleformSubmitHandler(evt) {
@@ -134,10 +134,11 @@ function handleformSubmitHandler(evt) {
 function handleFormSubmit(evt) {
     evt.preventDefault();
     const card = getCard(popAddTitle.value, popAddDescript.value);
-    PreCard(card)
+    preCard(card)
     closePop(popupAdd);
     popAddTitle.value = "";
     popAddDescript.value = "";
+    addFormButton.disabled = true;
 }
 
 addButton.addEventListener("click", function () { openPop(popupAdd) });
@@ -150,7 +151,7 @@ formAddElement.addEventListener("submit", handleFormSubmit);
 
 popContent.forEach(function (evt) {
     evt.addEventListener("click", (evt) => {
-        evt.targt.stopPropagation();
+        evt.target.stopPropagation();
 
     })
 

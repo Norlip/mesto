@@ -1,22 +1,22 @@
 
-const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-    const buttonElement = formElement.querySelector('.popup__button');
+const setEventListeners = (formElement, rest) => {
+    const inputList = Array.from(formElement.querySelectorAll(rest.inputSelector));
+    const buttonElement = formElement.querySelector(rest.submitButtonSelector);
 
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
-            check(formElement, inputElement);
-            setButton(buttonElement, inputList);
+            check(formElement, inputElement, rest);
+            setButton(buttonElement, inputList, rest);
         });
     });
 };
-const enableValidation = ({ formSelector }) => {
+const enableValidation = ({ formSelector, ...rest }) => {
     const getFormList = Array.from(document.querySelectorAll(formSelector));
     getFormList.forEach((formElement) => {
         formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
-        setEventListeners(formElement);
+        setEventListeners(formElement, rest);
     })
 };
 
@@ -31,24 +31,33 @@ enableValidation({
 
 
 
-function showError(form, input) {
+function showError(form, input, rest) {
     const error = form.querySelector(`#${input.id}-error`);
     error.textContent = input.validationMessage;
+    error.classList.add(rest.errorClass);
+    input.classList.add(rest.inputErrorClass);
+
+
+
+
 
 }
-function hideError(form, input) {
+function hideError(form, input, rest) {
     const error = form.querySelector(`#${input.id}-error`);
     error.textContent = "";
+    error.classList.remove(rest.errorClass);
+    input.classList.remove(rest.inputErrorClass);
 
 }
 
-function check(form, input) {
+function check(form, input, rest) {
 
     if (!input.validity.valid) {
-        showError(form, input);
+
+        showError(form, input, rest);
     }
     else {
-        hideError(form, input);
+        hideError(form, input, rest);
 
     }
 
@@ -58,12 +67,15 @@ const hasInvalidInput = (inputList) => {
         return !inputElement.validity.valid;
     })
 };
-function setButton(button, inputList) {
-
+function setButton(button, inputList, rest) {
     if (hasInvalidInput(inputList)) {
+        button.classList.add(rest.inactiveButtonClass);
         button.disabled = true;
+
+
     }
     else {
+        button.classList.remove(rest.inactiveButtonClass);
         button.disabled = false;
 
     }
