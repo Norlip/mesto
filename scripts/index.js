@@ -139,6 +139,7 @@ function handleFormSubmit(evt) {
     popAddTitle.value = "";
     popAddDescript.value = "";
     addFormButton.disabled = true;
+    addFormButton.classList.add("popup__button_disabled");
 }
 
 addButton.addEventListener("click", function () { openPop(popupAdd) });
