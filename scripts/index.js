@@ -83,8 +83,8 @@ function closePop(pop) {
 
 function getCard(name, link) {
     const temple = document.querySelector(".template").content.cloneNode(true);
-    temple.querySelector(".elements__name").textContent = name;
-    const photo = temple.querySelector(".elements__photo");
+    temple.querySelector(".template__name").textContent = name;
+    const photo = temple.querySelector(".template__photo");
     photo.src = link;
     temple.querySelector(".button_type_del").addEventListener("click", event => {
         event.target.closest(".elements_li").remove()
