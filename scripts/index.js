@@ -87,7 +87,7 @@ function getCard(name, link) {
     const photo = temple.querySelector(".template__photo");
     photo.src = link;
     temple.querySelector(".button_type_del").addEventListener("click", event => {
-        event.target.closest(".elements_li").remove()
+        event.target.closest(".template__li").remove()
 
     });
 
