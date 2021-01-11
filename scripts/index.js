@@ -1,3 +1,6 @@
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js"
+
 const editButton = document.querySelector('.button_type_edit');
 const addButton = document.querySelector('.button_type_add');
 const addCloseButton = document.querySelector('.popup-add__close');
@@ -51,35 +54,33 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
-
+const forms = Array.from(document.forms);
 const photoCloseButton = document.querySelector('.popup-photo__close');
 const photoImage = document.querySelector('.elements__photo');
 const photoPhotoImage = document.querySelector('.popup-photo__image');
 const photoPopup = document.querySelector('.popup-photo');
 const popupTitle = document.querySelector('.popup-photo__title');
 
-function esc(evt) {
+const validset = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+};
+
+
+/*function esc(evt) {
     if (evt.key === "Escape") {
         const popupActive = document.querySelector('.popup_opened');
         closePop(popupActive);
     }
 }
 
-function openPop(pop) {
-    pop.classList.add("popup_opened");
-    document.addEventListener('keydown', esc);
-}
 
-function openEditPop(pop) {
-    popTitle.value = title.textContent;
-    popDescript.value = descript.textContent;
-    openPop(pop);
-}
 
-function closePop(pop) {
-    pop.classList.remove("popup_opened");
-    document.removeEventListener('keydown', esc);
-}
+
 
 function getCard(name, link) {
     const temple = document.querySelector(".template").content.cloneNode(true);
@@ -87,7 +88,7 @@ function getCard(name, link) {
     const photo = temple.querySelector(".template__photo");
     photo.src = link;
     temple.querySelector(".button_type_del").addEventListener("click", event => {
-        event.target.closest(".template__li").remove()
+        event.target.closest(".template__li0").remove()
 
     });
 
@@ -116,14 +117,37 @@ function getCard(name, link) {
 
 }
 
+
 function preCard(card) {
     elementsGrid.prepend(card);
 
 }
+
 initialCards.forEach(function (item) {
     const card = getCard(item.name, item.link);
     preCard(card)
 });
+*/
+function getCard(name, link) {
+    const card = new Card(name, link, "template")
+    const cardElement = card.create();
+    document.querySelector(".elements__grid").prepend(cardElement);
+
+}
+function openPop(pop) {
+
+    pop.classList.add("popup_opened");
+
+}
+
+function closePop(pop) {
+    pop.classList.remove("popup_opened");
+}
+function openEditPop(pop) {
+    popTitle.value = title.textContent;
+    popDescript.value = descript.textContent;
+    openPop(pop);
+}
 
 function handleformSubmitHandler(evt) {
     evt.preventDefault();
@@ -134,7 +158,6 @@ function handleformSubmitHandler(evt) {
 function handleFormSubmit(evt) {
     evt.preventDefault();
     const card = getCard(popAddTitle.value, popAddDescript.value);
-    preCard(card)
     closePop(popupAdd);
     popAddTitle.value = "";
     popAddDescript.value = "";
@@ -149,7 +172,7 @@ addCloseButton.addEventListener("click", function () { closePop(popupAdd) });
 editCloseButton.addEventListener("click", function () { closePop(popupEdit) });
 formAddElement.addEventListener("submit", handleFormSubmit);
 
-
+/*
 popContent.forEach(function (evt) {
     evt.addEventListener("click", (evt) => {
         evt.target.stopPropagation();
@@ -157,6 +180,8 @@ popContent.forEach(function (evt) {
     })
 
 });
+*/
+
 
 pop.forEach(function (evt) {
     evt.addEventListener("click", (evt) => {
@@ -166,4 +191,15 @@ pop.forEach(function (evt) {
 
 })
 
+initialCards.forEach((item) => {
+    const card = new Card(item.name, item.link, "template")
+    const cardElement = card.create();
+    document.querySelector(".elements__grid").prepend(cardElement);
+})
 
+
+forms.forEach(form => {
+    const formValidator = new FormValidator(form, validset);
+    formValidator.enableValidation();
+
+})

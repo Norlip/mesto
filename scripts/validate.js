@@ -20,7 +20,7 @@ const enableValidation = ({ formSelector, ...rest }) => {
     })
 };
 
-enableValidation({
+/*enableValidation({
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
@@ -28,7 +28,7 @@ enableValidation({
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
 });
-
+*/
 
 
 function showError(form, input, rest) {
@@ -36,11 +36,6 @@ function showError(form, input, rest) {
     error.textContent = input.validationMessage;
     error.classList.add(rest.errorClass);
     input.classList.add(rest.inputErrorClass);
-
-
-
-
-
 }
 function hideError(form, input, rest) {
     const error = form.querySelector(`#${input.id}-error`);
@@ -82,7 +77,6 @@ function setButton(button, inputList, rest) {
 
 }
 
-//Пришлось самому разбираться. Надеюсь я все правильно понял
 
 
 
