@@ -5,86 +5,83 @@ export class Card {
         this._cardSelector = cardSelector;
     }
 
-    _like(temple) {
-        temple.querySelector(".button_type_like").addEventListener("click", event => {
-
-            event.target.classList.toggle("button_type_like-activ");
-
-        });
+    _like(ev) {
+        ev.target.classList.toggle("button_type_like-activ");
     }
 
-    _del(temple) {
-        temple.querySelector(".button_type_del").addEventListener("click", event => {
-            event.target.closest(".template__li").remove()
-        })
+    _del(ev) {
+        ev.target.closest(".template__li").remove();
     }
 
 
-    _esc(evt) {
-        if (evt.key === "Escape") {
-            const popupActive = document.querySelector('.popup_opened');
-            this._closePop(popupActive);
 
-        }
-    }
-
-    _openPop(pop) {
-        pop.classList.add("popup_opened");
-        document.addEventListener('keydown', (event) => { this._esc(event) });
-    }
-
-    _closePop(pop) {
-        pop.classList.remove("popup_opened");
-        document.removeEventListener('keydown', (event) => { this._esc(event) });
-    }
-
-    _pop(photo) {
+    _pop() {
         const photoCloseButton = document.querySelector('.popup-photo__close');
         const photoPopup = document.querySelector('.popup-photo');
         const photoPhotoImage = document.querySelector('.popup-photo__image');
         const popupTitle = document.querySelector('.popup-photo__title');
 
-        photo.addEventListener("click", () => {
-            this._openPop(photoPopup);
-            photoPhotoImage.src = this._link;
-            popupTitle.textContent = this._name;
-
-        });
+        openPop(photoPopup);
+        photoPhotoImage.src = this._link;
+        popupTitle.textContent = this._name;
 
         photoCloseButton.addEventListener("click", (evt) => {
-            this._closePop(photoPopup);
+            closePop(photoPopup);
 
         });
 
     }
 
+    _setEventListeners() {
+        this._photo.addEventListener('click', () => {
+            this._pop()
+        });
+        this._likeButton.addEventListener('click', (ev) => {
+            this._like(ev)
+        });
+        this._delButton.addEventListener('click', (ev) => {
+            this._del(ev)
+        });
+
+
+    }
+
+    _getTemplate() {
+        const cardElement = document.querySelector(this._cardSelector).content.cloneNode(true);
+        return cardElement;
+    }
+
     create() {
-        const temple = document.querySelector(this._cardSelector).content.cloneNode(true);
-        temple.querySelector(".template__name").textContent = this._name;
-        const photo = temple.querySelector(".template__photo");
-        photo.src = this._link;
-
-
-        this._like(temple);
-        this._del(temple);
-        this._pop(photo);
-
-
-        /* photo.addEventListener("click", () => {
-             openPop(photoPopup);
-             photoPhotoImage.src = this._link;
-             popupTitle.textContent = this._name;
-    
-         });
-    /*
-         photoCloseButton.addEventListener("click", (evt) => {
-             closePop(photoPopup);
-    
-         });
-    */
-        return temple;;
+        this._element = this._getTemplate();
+        this._photo = this._element.querySelector(".template__photo")
+        this._element.querySelector(".template__name").textContent = this._name;
+        this._likeButton = this._element.querySelector(".button_type_like");
+        this._delButton = this._element.querySelector(".button_type_del");
+        this._photo.src = this._link;
+        this._setEventListeners();
+        return this._element;;
 
     }
 
 
 }
+
+function esc(evt) {
+    if (evt.key === "Escape") {
+        const popupActive = document.querySelector('.popup_opened');
+        closePop(popupActive);
+    }
+}
+function openPop(pop) {
+    pop.classList.add("popup_opened");
+    document.addEventListener('keydown', (event) => { esc(event) });
+}
+
+function closePop(pop) {
+    pop.classList.remove("popup_opened");
+    document.removeEventListener('keydown', (event) => { esc(event) });
+
+
+}
+
+// Я НЕ ПОНИМАЮ ОТКУДА ПОЯВЛЯЕТСЯ ОШИБКА Cannot read property 'classList' of null. ПРИ ОТКРЫТИИ, Я ЖЕ СНАЧАЛА ДАЮ POP СТАТУС OPENNED, А ПРИ НАЖАТИИ ESC УДАЛЯЮ СТАТУС.

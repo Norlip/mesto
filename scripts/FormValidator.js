@@ -50,15 +50,7 @@ export class FormValidator {
         input.classList.remove(rest.inputErrorClass);
 
     }
-    _enable({ formSelector, ...rest }) {
-        const getFormList = Array.from(document.querySelectorAll(formSelector));
-        getFormList.forEach((formElement) => {
-            formElement.addEventListener('submit', (evt) => {
-                evt.preventDefault();
-            });
-            this._setEventListeners(formElement, rest);
-        })
-    };
+
     _setEventListeners(formElement, rest) {
         const inputList = Array.from(formElement.querySelectorAll(rest.inputSelector));
         const buttonElement = formElement.querySelector(rest.submitButtonSelector);
@@ -72,6 +64,12 @@ export class FormValidator {
     };
 
     enableValidation() {
+        const getFormList = Array.from(document.querySelectorAll('.popup__form'));
+        getFormList.forEach((formElement) => {
+            formElement.addEventListener('submit', (evt) => {
+                evt.preventDefault();
+            });
+        })
         this._setEventListeners(this._form, this._settings);
     }
 }
