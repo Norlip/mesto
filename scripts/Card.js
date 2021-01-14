@@ -1,3 +1,4 @@
+import { openPop, closePop } from "./index.js";
 export class Card {
     constructor(name, link, cardSelector) {
         this._name = name;
@@ -66,22 +67,6 @@ export class Card {
 
 }
 
-function esc(evt) {
-    if (evt.key === "Escape") {
-        const popupActive = document.querySelector('.popup_opened');
-        closePop(popupActive);
-    }
-}
-function openPop(pop) {
-    pop.classList.add("popup_opened");
-    document.addEventListener('keydown', (event) => { esc(event) });
-}
 
-function closePop(pop) {
-    pop.classList.remove("popup_opened");
-    document.removeEventListener('keydown', (event) => { esc(event) });
-
-
-}
 
 // Я НЕ ПОНИМАЮ ОТКУДА ПОЯВЛЯЕТСЯ ОШИБКА Cannot read property 'classList' of null. ПРИ ОТКРЫТИИ, Я ЖЕ СНАЧАЛА ДАЮ POP СТАТУС OPENNED, А ПРИ НАЖАТИИ ESC УДАЛЯЮ СТАТУС.

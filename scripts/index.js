@@ -9,7 +9,6 @@ const addFormButton = document.querySelector('.popup-add__button');
 const pop = document.querySelectorAll('.popup');
 
 
-
 const popupAdd = document.querySelector(".popup-add");
 const popupEdit = document.querySelector(".popup-edit");
 
@@ -66,20 +65,21 @@ function getCard(name, link) {
     document.querySelector(".elements__grid").prepend(cardElement);
 
 }
-function esc(evt) {
+// Я НЕ ПОНИМАЮ ОТКУДА ПОЯВЛЯЕТСЯ ОШИБКА Cannot read property 'classList' of null. ПРИ ОТКРЫТИИ, Я ЖЕ СНАЧАЛА ДАЮ POP СТАТУС OPENNED, А ПРИ НАЖАТИИ ESC УДАЛЯЮ СТАТУС.
+
+export function esc(evt) {
     if (evt.key === "Escape") {
         const popupActive = document.querySelector('.popup_opened');
         closePop(popupActive);
 
-
     }
 }
-function openPop(pop) {
+export function openPop(pop) {
     pop.classList.add("popup_opened");
     document.addEventListener('keydown', (event) => { esc(event) });
 }
 
-function closePop(pop) {
+export function closePop(pop) {
     pop.classList.remove("popup_opened");
     document.removeEventListener('keydown', (event) => { esc(event) });
 
@@ -113,24 +113,6 @@ addCloseButton.addEventListener("click", function () { closePop(popupAdd) });
 editCloseButton.addEventListener("click", function () { closePop(popupEdit) });
 formAddElement.addEventListener("submit", handleFormSubmit);
 
-/*
-popContent.forEach(function (evt) {
-    evt.addEventListener("click", (evt) => {
-        evt.target.stopPropagation();
-
-    })
-
-});
-*/
-
-
-pop.forEach(function (evt) {
-    evt.addEventListener("click", (evt) => {
-        closePop(evt.target);
-    })
-
-
-})
 
 initialCards.forEach((item) => {
     const card = new Card(item.name, item.link, "template")
