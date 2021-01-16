@@ -5,9 +5,15 @@ const editButton = document.querySelector('.button_type_edit');
 const addButton = document.querySelector('.button_type_add');
 const addCloseButton = document.querySelector('.popup-add__close');
 const editCloseButton = document.querySelector('.popup-edit__close');
-const addFormButton = document.querySelector('.popup-add__button');
+const photoClose = document.querySelector('.popup-photo__close');
+const popContent = document.querySelectorAll('.popup__content');
 const pop = document.querySelectorAll('.popup');
 
+
+
+const addFormButton = document.querySelector('.popup-add__button');
+
+const photoPopup = document.querySelector('.popup-photo');
 
 const popupAdd = document.querySelector(".popup-add");
 const popupEdit = document.querySelector(".popup-edit");
@@ -65,7 +71,6 @@ function getCard(name, link) {
     document.querySelector(".elements__grid").prepend(cardElement);
 
 }
-// Я НЕ ПОНИМАЮ ОТКУДА ПОЯВЛЯЕТСЯ ОШИБКА Cannot read property 'classList' of null. ПРИ ОТКРЫТИИ, Я ЖЕ СНАЧАЛА ДАЮ POP СТАТУС OPENNED, А ПРИ НАЖАТИИ ESC УДАЛЯЮ СТАТУС.
 
 export function esc(evt) {
     if (evt.key === "Escape") {
@@ -76,14 +81,17 @@ export function esc(evt) {
 }
 export function openPop(pop) {
     pop.classList.add("popup_opened");
-    document.addEventListener('keydown', (event) => { esc(event) });
+    document.addEventListener('keydown', esc);
 }
 
 export function closePop(pop) {
     pop.classList.remove("popup_opened");
-    document.removeEventListener('keydown', (event) => { esc(event) });
+    document.removeEventListener('keydown', esc);
 
 }
+
+
+
 function openEditPop(pop) {
     popTitle.value = title.textContent;
     popDescript.value = descript.textContent;
@@ -106,12 +114,30 @@ function handleFormSubmit(evt) {
     addFormButton.classList.add("popup__button_disabled");
 }
 
+photoClose.addEventListener("click", (evt) => {
+    closePop(photoPopup);
+
+});
+
 addButton.addEventListener("click", function () { openPop(popupAdd) });
 editButton.addEventListener("click", function () { openEditPop(popupEdit) });
 formEditElement.addEventListener("submit", handleformSubmitHandler);
 addCloseButton.addEventListener("click", function () { closePop(popupAdd) });
 editCloseButton.addEventListener("click", function () { closePop(popupEdit) });
 formAddElement.addEventListener("submit", handleFormSubmit);
+
+
+pop.forEach(function (evt) {
+
+    evt.addEventListener("click", (evt) => {
+
+        closePop(evt.target);
+
+    })
+
+
+})
+
 
 
 initialCards.forEach((item) => {
