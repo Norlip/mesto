@@ -1,4 +1,4 @@
-import { openPop, closePop } from "./index.js";
+import { openPop } from "./index.js";
 export class Card {
     constructor(name, link, cardSelector) {
         this._name = name;
@@ -22,7 +22,6 @@ export class Card {
         openPop(photoPopup);
         photoPhotoImage.src = this._link;
         photoPhotoImage.alt = "Фото";
-
         popupTitle.textContent = this._name;
 
 

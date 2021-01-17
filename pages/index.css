@@ -26,8 +26,6 @@
 @import url(../blocks/template/__item/template__item.css);
 @import url(../blocks/template/__description/template__description.css);
 
-
-
 @import url(../blocks/footer/__descript/footer__descript.css);
 @import url(../blocks/footer/footer.css);
 
@@ -66,3 +64,4 @@
 @import url(../blocks/popup/__button/_disabled/popup__button_disabled.css);
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_error.css);
+@import url(../blocks/popup/__content/popup__content.css);

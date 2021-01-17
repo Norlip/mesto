@@ -6,15 +6,10 @@ const addButton = document.querySelector('.button_type_add');
 const addCloseButton = document.querySelector('.popup-add__close');
 const editCloseButton = document.querySelector('.popup-edit__close');
 const photoClose = document.querySelector('.popup-photo__close');
-const popContent = document.querySelectorAll('.popup__content');
-const pop = document.querySelectorAll('.popup');
-
-
 
 const addFormButton = document.querySelector('.popup-add__button');
 
 const photoPopup = document.querySelector('.popup-photo');
-
 const popupAdd = document.querySelector(".popup-add");
 const popupEdit = document.querySelector(".popup-edit");
 
@@ -72,6 +67,7 @@ function getCard(name, link) {
 
 }
 
+
 export function esc(evt) {
     if (evt.key === "Escape") {
         const popupActive = document.querySelector('.popup_opened');
@@ -79,18 +75,30 @@ export function esc(evt) {
 
     }
 }
+
+
+function onClickClose(el) {
+    el.onclick = function (e) {
+        if (e.target.classList.contains('popup')) {
+            closePop(el)
+        };
+    };
+}
+
+
 export function openPop(pop) {
     pop.classList.add("popup_opened");
+    document.addEventListener("click", onClickClose(pop))
     document.addEventListener('keydown', esc);
+
 }
 
 export function closePop(pop) {
     pop.classList.remove("popup_opened");
+    document.removeEventListener("click", onClickClose(pop))
     document.removeEventListener('keydown', esc);
 
 }
-
-
 
 function openEditPop(pop) {
     popTitle.value = title.textContent;
@@ -125,20 +133,6 @@ formEditElement.addEventListener("submit", handleformSubmitHandler);
 addCloseButton.addEventListener("click", function () { closePop(popupAdd) });
 editCloseButton.addEventListener("click", function () { closePop(popupEdit) });
 formAddElement.addEventListener("submit", handleFormSubmit);
-
-
-pop.forEach(function (evt) {
-
-    evt.addEventListener("click", (evt) => {
-
-        closePop(evt.target);
-
-    })
-
-
-})
-
-
 
 initialCards.forEach((item) => {
     const card = new Card(item.name, item.link, "template")
