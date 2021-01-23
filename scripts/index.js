@@ -60,6 +60,17 @@ const validset = {
     errorClass: 'popup__error_visible'
 };
 
+function addCard(card) {
+    const cardElement = card.create();
+    document.querySelector(".elements__grid").prepend(cardElement);
+
+}
+
+function getCard(name, link) {
+    const card = new Card(name, link, "template")
+    addCard(card);
+
+}
 
 
 export function esc(evt) {
@@ -108,6 +119,7 @@ function handleformSubmitHandler(evt) {
 }
 function handleFormSubmit(evt) {
     evt.preventDefault();
+    getCard(popAddTitle.value, popAddDescript.value);
     closePop(popupAdd);
     popAddTitle.value = "";
     popAddDescript.value = "";
@@ -129,9 +141,9 @@ formAddElement.addEventListener("submit", handleFormSubmit);
 
 initialCards.forEach((item) => {
     const card = new Card(item.name, item.link, "template")
-    const cardElement = card.create();
-    document.querySelector(".elements__grid").prepend(cardElement); // ТАК КАК УДАЛИЛ КОНСТАНТУ card НА 117 СТРОКЕ, КЛАСС  getCard стал тоже ненужным. Теперь код не повторяеться
+    addCard(card)
 })
+
 
 forms.forEach(form => {
     const formValidator = new FormValidator(form, validset);
