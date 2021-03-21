@@ -17,7 +17,7 @@
 
 @media screen and (max-width: 629px) {
     .popup__close {
-        background: url("../../../sprint-4-images/Close\ _Icon_mobile.svg") no-repeat;
+        background: url("../../../sprint-4-images/1.svg") no-repeat;
         right: -10px;
     }
 }

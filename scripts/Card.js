@@ -1,9 +1,11 @@
-import { openPop } from "./index.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+
 export class Card {
-    constructor(name, link, cardSelector) {
+    constructor(name, link, cardSelector, handleCardClick) {
         this._name = name;
         this._link = link;
         this._cardSelector = cardSelector;
+        this._handl = handleCardClick;
     }
 
     _like(e) {
@@ -24,14 +26,12 @@ export class Card {
         photoPhotoImage.alt = "Фото";
         popupTitle.textContent = this._name;
 
-
-
     }
 
     _setEventListeners() {
-        this._photo.addEventListener('click', () => {
-            this._handlePreviewPicture()
-        });
+
+        this._photo.addEventListener('click', () =>
+            this._handl(this));
         this._likeButton.addEventListener('click', (ev) => {
             this._like(ev)
         });
